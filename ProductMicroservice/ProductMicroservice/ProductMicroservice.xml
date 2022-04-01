@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProductMicroservice</name>
+    </assembly>
+    <members>
+        <member name="M:ProductMicroservice.Controllers.ProductController.Post(ProductMicroservice.Models.Product)">
+            <summary>
+            Action to create a new product in the database.
+            </summary>
+            <param name="product">Model to create a new Product</param>
+            <returns>Returns the created product</returns>
+            <response code="200">Returned if the product was created</response>
+            <response code="400">Returned if the model couldn't be parsed or the product couldn't be saved</response>
+            <response code="422">Returned when the validation failed</response>
+        </member>
+    </members>
+</doc>
