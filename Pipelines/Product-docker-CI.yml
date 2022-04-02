@@ -5,8 +5,8 @@ trigger:
       - master
   paths:
     include:
-      - ProductMicroservice/*
-
+      - ProductMicroservice-DotNET-Core-Master/*
+      
 pool:
   ## vmImage: 'ubuntu-latest'
   vmImage: 'windows-latest'
