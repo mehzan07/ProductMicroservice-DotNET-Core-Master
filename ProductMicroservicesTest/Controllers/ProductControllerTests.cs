@@ -90,15 +90,7 @@ namespace ProductMicroservicesTest.Controllers
 
         }
 
-        // Delete Product only test
-        [Fact]
-        public void DeleteMyProduct()
-        {
-            int Id = 1;
-            var result = _testProductRepository.Setup(x => x.DeleteProduct(Id));
-            Assert.NotNull(result);
-
-        }
+       
     }
 
 }
