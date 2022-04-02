@@ -90,7 +90,15 @@ namespace ProductMicroservicesTest.Controllers
 
         }
 
-       
+        // a dummy unit test only for test
+        [Fact]
+        public void dummyProduct()
+        {
+            int Id = 1;
+            var result = _testProductRepository.Setup(x => x.DeleteProduct(Id));
+            Assert.NotNull(result);
+
+        }
     }
 
 }
