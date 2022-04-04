@@ -8,7 +8,6 @@ trigger:
       - ProductMicroservice/*
       
 pool:
-  ## vmImage: 'ubuntu-latest'
   vmImage: 'windows-latest'
 
 variables:
