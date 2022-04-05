@@ -25,7 +25,6 @@ stages:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Build an image'
-         arguments: --output $(System.DefaultWorkingDirectory)/publish_output --configuration $(buildConfiguration)
         dockerFile: '**/ProductMicroservice/ProductMicroservice/Dockerfile'
         imageName: '$(ImageName)'
         useDefaultContext: false
