@@ -15,7 +15,7 @@ COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/Pro
 RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
 COPY . .
 WORKDIR "/src/ProductMicroservice/ProductMicroservice"
-RUN dotnet build "ProductMicroservice.csproj" -c Release -o /app/build
+RUN dotnet build "ProductMicroservice.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
 RUN dotnet publish "ProductMicroservice.csproj" -c Release -o /app/publish
