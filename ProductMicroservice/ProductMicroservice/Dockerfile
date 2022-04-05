@@ -12,7 +12,7 @@ WORKDIR /src
 ##COPY ["ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
  
 COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
-RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj" --configfile "./nuget.config"
 COPY . .
 WORKDIR "/src/ProductMicroservice/ProductMicroservice"
 RUN dotnet build "ProductMicroservice.csproj" -c Release -o /app/build --no-restore
