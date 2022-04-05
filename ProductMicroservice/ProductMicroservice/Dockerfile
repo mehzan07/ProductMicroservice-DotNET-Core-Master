@@ -10,8 +10,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["/ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/"]
-RUN dotnet restore "/ProductMicroservice/ProductMicroservice.csproj" 
-RUN dotnet restore "ProductMicroservicesTest/ProductMicroservicesTest/ProductMicroservicesTest.csproj"
+#RUN dotnet restore "/ProductMicroservice/ProductMicroservice.csproj"
+RUN dotnet restore "ProductMicroservice.csproj"
+## RUN dotnet restore "ProductMicroservicesTest/ProductMicroservicesTest/ProductMicroservicesTest.csproj"
 COPY . .
 WORKDIR "/src/ProductMicroservice/ProductMicroservice"
 ## RUN dotnet build "/ProductMicroservice/ProductMicroservice.csproj" -c Release -o /app/build --no-restore
