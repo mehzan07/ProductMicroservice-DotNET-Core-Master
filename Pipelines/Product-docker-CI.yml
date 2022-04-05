@@ -8,7 +8,7 @@ trigger:
       - ProductMicroservice/*
       
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 variables:
   ImageName: 'mehzan07/ProductMicroservice:$(Build.BuildId)'
