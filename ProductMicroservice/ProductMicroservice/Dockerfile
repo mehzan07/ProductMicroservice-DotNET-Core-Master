@@ -12,7 +12,7 @@ WORKDIR /src
 ##COPY ["ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
 ## RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
 ##COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
-RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+##RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
 COPY ["ProductMicroservice.csproj", "ProductMicroservice/"]
 RUN dotnet restore "ProductMicroservice/ProductMicroservice.csproj"
 ##COPY . .
