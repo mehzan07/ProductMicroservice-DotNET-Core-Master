@@ -13,7 +13,8 @@ WORKDIR /src
 ## RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
 COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
 RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-COPY . .
+#COPY . .
+COPY . "ProductMicroservice/ProductMicroservice/
 WORKDIR "/src/ProductMicroservice/ProductMicroservice"
 RUN dotnet build "ProductMicroservice.csproj" -c Release -o /app/build
 
