@@ -25,10 +25,12 @@ stages:
         containerregistrytype: 'Container Registry'
         dockerRegistryEndpoint: 'Docker Hub'
         command: 'Build an image'
-        dockerFile: '**/ProductMicroservice/ProductMicroservice/Dockerfile'
+        ##dockerFile: '**/ProductMicroservice/ProductMicroservice/Dockerfile'
+        dockerFile: '**/Dockerfile'
         imageName: '$(ImageName)'
         useDefaultContext: false
-        buildContext: 'ProductMicroservice'
+       ## buildContext: 'ProductMicroservice'
+     buildContext:'$(Build.Repository.LocalPath)'
       displayName: 'Build the Docker image'
 
     - task: Docker@1      
