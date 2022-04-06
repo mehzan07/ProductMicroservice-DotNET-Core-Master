@@ -30,7 +30,7 @@ stages:
         imageName: '$(ImageName)'
         useDefaultContext: false
        ## buildContext: 'ProductMicroservice'
-     buildContext:'$(Build.Repository.LocalPath)'
+       buildContext:'$(Build.Repository.LocalPath)'
       displayName: 'Build the Docker image'
 
     - task: Docker@1      
