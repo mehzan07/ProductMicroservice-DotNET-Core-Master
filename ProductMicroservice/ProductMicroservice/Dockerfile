@@ -11,11 +11,13 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 ##COPY ["ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
 ## RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
+##COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/ProductMicroservice/"]
 RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-#COPY . .
-COPY . "ProductMicroservice/ProductMicroservice/
-WORKDIR "/src/ProductMicroservice/ProductMicroservice"
+COPY ["ProductMicroservice.csproj", "ProductMicroservice/"]
+RUN dotnet restore "ProductMicroservice/ProductMicroservice.csproj"
+##COPY . .
+COPY . ProductMicroservice/
+WORKDIR "/src/ProductMicroservice"
 RUN dotnet build "ProductMicroservice.csproj" -c Release -o /app/build
 
 FROM build AS publish
