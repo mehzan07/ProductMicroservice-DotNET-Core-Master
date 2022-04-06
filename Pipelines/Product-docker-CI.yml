@@ -29,8 +29,8 @@ stages:
         dockerFile: '**/Dockerfile'
         imageName: '$(ImageName)'
         useDefaultContext: false
-       ## buildContext: 'ProductMicroservice'
-       buildContext:  '$(Build.SourcesDirectory)'
+       buildContext: 'ProductMicroservice'
+       ## buildContext:  '$(Build.SourcesDirectory)'
       displayName: 'Build the Docker image'
 
     - task: Docker@1      
