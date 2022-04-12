@@ -95,7 +95,6 @@ namespace ProductMicroservice.Controllers
             }
         }
 
-        // new
         /// <summary>
         /// Action: Post to create a new product in the database.
         /// </summary>
