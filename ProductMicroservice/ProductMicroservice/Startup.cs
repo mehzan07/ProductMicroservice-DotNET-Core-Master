@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using ProductMicroservice.DBContexts;
 using ProductMicroservice.Repository;
+using MediatR;
+using AutoMapper;
 
 
 namespace ProductMicroservice
@@ -27,12 +29,19 @@ namespace ProductMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDB")));
+            // connectionString: ProductsDBConString is defined in the appsettings.json
+            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddTransient<IProductRepository, ProductRepository>();
 
             services.AddSwaggerGen(c =>
             {
+                // new here
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -49,8 +58,11 @@ namespace ProductMicroservice
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-        }
 
+            //Registering MediatR
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(Startup));
+        }
        
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +71,14 @@ namespace ProductMicroservice
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c =>
+                //{
+                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+                //    //c.RoutePrefix = string.Empty;
+                //});
             }
-
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();

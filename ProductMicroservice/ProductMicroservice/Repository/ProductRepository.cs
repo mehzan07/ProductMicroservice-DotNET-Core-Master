@@ -15,11 +15,13 @@ namespace ProductMicroservice.Repository
         {
             _dbContext = dbContext;
         }
-        public void DeleteProduct(int productId)
+        public Product DeleteProduct(int productId)
         {
             var product = _dbContext.Products.Find(productId);
+            var prod = product;
             _dbContext.Products.Remove(product);
             Save();
+            return prod;
         }
 
         public Product GetProductByID(int productId)
@@ -34,10 +36,16 @@ namespace ProductMicroservice.Repository
         }
 
 
-        public void InsertProduct(Product product)
+        //public void InsertProduct(Product product)
+        //{
+        //    _dbContext.Add(product);
+        //    Save();
+        //}
+        public Product InsertProduct(Product product)
         {
             _dbContext.Add(product);
             Save();
+            return product;  // no return needed but because of method Handel in CreateProductCommandHandler in ProductApi we need this
         }
 
         public void Save()
@@ -45,10 +53,12 @@ namespace ProductMicroservice.Repository
             _dbContext.SaveChanges();
         }
 
-        public void UpdateProduct(Product product)
+        public Product UpdateProduct(Product product)
         {
-            _dbContext.Entry(product).State = EntityState.Modified;
+           var retValue = _dbContext.Entry(product).State = EntityState.Modified;
             Save();
+            return product;  // no return needed but because of method Handel in CreateProductCommandHandler in ProductApi we need this
+
         }
     }
 }
