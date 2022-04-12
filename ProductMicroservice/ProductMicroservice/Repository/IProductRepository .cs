@@ -6,10 +6,13 @@ namespace ProductMicroservice.Repository
     public interface IProductRepository
     {
         IEnumerable<Product> GetProducts();
-        Product GetProductByID(int product);
-        void InsertProduct(Product product);
-        void DeleteProduct(int productId);
-        void UpdateProduct(Product product);
+        Product GetProductByID(int productId);
+       // void InsertProduct(Product product);
+        Product InsertProduct(Product product);
+        //void DeleteProduct(int productId);
+        Product DeleteProduct(int productId);
+        //void UpdateProduct(Product product);
+        Product UpdateProduct(Product product);
         void Save();
     }
 }
