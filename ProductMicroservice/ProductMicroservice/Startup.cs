@@ -30,18 +30,15 @@ namespace ProductMicroservice
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             // connectionString: ProductsDBConString is defined in the appsettings.json
             services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddControllers();
+
 
             services.AddSwaggerGen(c =>
             {
-                // new here
-
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -68,15 +65,17 @@ namespace ProductMicroservice
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c =>
-                //{
-                //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
-                //    //c.RoutePrefix = string.Empty;
-                //});
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
             app.UseHttpsRedirection();
             app.UseRouting();
@@ -86,12 +85,6 @@ namespace ProductMicroservice
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
-                c.RoutePrefix = string.Empty;
             });
         }
        

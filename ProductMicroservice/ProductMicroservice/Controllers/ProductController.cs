@@ -46,7 +46,6 @@ namespace ProductMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        //[HttpGet("products")]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
             try
