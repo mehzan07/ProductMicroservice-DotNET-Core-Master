@@ -13,6 +13,8 @@ using ProductMicroservice.DBContexts;
 using ProductMicroservice.Repository;
 using MediatR;
 using AutoMapper;
+using ProductMicroservice.RabbitMQMessaging.Options;
+using ProductMicroservice.RabbitMQMessaging.Sendmesage;
 
 
 namespace ProductMicroservice
@@ -56,9 +58,12 @@ namespace ProductMicroservice
                 c.IncludeXmlComments(xmlPath);
             });
 
-            //Registering MediatR
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddOptions();
+            services.Configure<RabbitMqConfig>(Configuration.GetSection("RabbitMq"));
+            services.AddTransient<IProductUpdateSender, ProductUpdateSender>();
         }
        
         

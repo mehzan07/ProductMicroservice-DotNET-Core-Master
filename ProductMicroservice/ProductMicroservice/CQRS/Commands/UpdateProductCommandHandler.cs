@@ -4,22 +4,26 @@ using ProductMicroservice.Models;
 using ProductMicroservice.Repository;
 using System.Threading;
 using System.Threading.Tasks;
+using ProductMicroservice.RabbitMQMessaging.Sendmesage;
 
 namespace ProductMicroservice.CQRS.Commands
 {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Product>
     {
-        private readonly IProductRepository _ProductRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IProductUpdateSender _productUpdateSender;
 
-        public UpdateProductCommandHandler(IProductRepository productRepository)
+        public UpdateProductCommandHandler(IProductRepository productRepository, IProductUpdateSender productUpdateSender)
         {
-            _ProductRepository = productRepository;
+            _productRepository = productRepository;
+            _productUpdateSender = productUpdateSender;
         }
 
         public async Task<Product> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            // var ok = await  Task.FromResult(_ProductRepository.UpdateProduct(request.product));
-          return await Task.FromResult(_ProductRepository.UpdateProduct(request.product));
+        var _product=  await Task.FromResult(_productRepository.UpdateProduct(request.product));
+          _productUpdateSender.SendProduct(_product);
+            return _product;
         }
     }
 }
