@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: kubernetesdeploymentps
-        image: wolfgangofner/kubernetesdeploymentps
+        image: mehzan07/kubernetesdeploymentps
         ports:
         - containerPort: 80
