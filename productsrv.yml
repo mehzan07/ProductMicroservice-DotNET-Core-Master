@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetesdeploymentps
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubernetesdeploymentps
+  template:
+    metadata:
+      labels:
+        app: kubernetesdeploymentps
+    spec:
+      containers:
+      - name: kubernetesdeploymentps
+        image: wolfgangofner/kubernetesdeploymentps
+        ports:
+        - containerPort: 80
