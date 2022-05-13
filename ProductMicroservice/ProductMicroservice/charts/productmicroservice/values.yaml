@@ -4,8 +4,8 @@
 fullnameOverride: productmicroservice
 replicaCount: 1
 image:
-  repository: productmicroservice
-  tag: stable
+  repository: mehzan07/productmicroservice
+  tag: latest
   pullPolicy: IfNotPresent
 imagePullSecrets: []
   # Optionally specify an array of imagePullSecrets.
@@ -15,7 +15,7 @@ imagePullSecrets: []
   # This uses credentials from secret "myRegistryKeySecretName".
   # - name: myRegistryKeySecretName
 service:
-  type: ClusterIP
+  type: LoadBalancer // ClusterIP changing because of exposing to the externalIP in the productmicroservice.
   port: 80
 
 deployment:
