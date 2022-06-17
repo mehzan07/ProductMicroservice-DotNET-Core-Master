@@ -2,7 +2,7 @@
   
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <DockerfileContext>..\..</DockerfileContext>
@@ -15,7 +15,13 @@
     <DocumentationFile>C:\Utvecklingprogram\Microservices\ProductMicroservice\ProductMicroservice\ProductMicroservice.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\net5.0\</OutputPath>
+    <OutputPath>bin\Debug\net6.0\</OutputPath>
+  </PropertyGroup>
+<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Utvecklingprogram\Microservices\ProductMicroservice\ProductMicroservice\ProductMicroservice.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net6.0\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
