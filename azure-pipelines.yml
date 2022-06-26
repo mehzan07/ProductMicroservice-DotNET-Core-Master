@@ -9,7 +9,7 @@ trigger:
     - master
     paths:
 include:
-  ProductMicroservice-DotNET-Core-Master/*
+   ProductMicroservice-DotNET-Core-Master/*
 pool:
 vmImage: 'windows-latest'
 variables:
