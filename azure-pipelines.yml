@@ -4,39 +4,46 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 name : NetCore-ProductMicroservice-CI
 trigger:
-    branches:
+  branches:
     include:
-    - master
-    paths:
-   include:
-   ProductMicroservice-DotNET-Core-Master/*
+      - master
+  paths:
+    include:
+      - ProductMicroservice-DotNET-Core-Master/*
+ 
 pool:
-vmImage: 'windows-latest'
+  vmImage: 'windows-latest'
+ 
 variables:
-buildConfiguration: 'Release'
+  buildConfiguration: 'Release'
+ 
 steps:
 - task: DotNetCoreCLI@2
- inputs:
-command: 'restore'
-projects: '**/ProductMicroservice*.csproj'
-displayName: 'Restore Nuget Packages'
+  inputs:
+    command: 'restore'
+    projects: '**/ProductMicroservice*.csproj'
+  displayName: 'Restore Nuget Packages'
+ 
 - task: DotNetCoreCLI@2
-inputs:
-command: 'build'
-projects: '**/ProductMicroservice*.csproj'
-arguments: '--no-restore'
-displayName: 'Build projects'
+  inputs:
+    command: 'build'
+    projects: '**/ProductMicroservice*.csproj'
+    arguments: '--no-restore'
+  displayName: 'Build projects'
+ 
 - task: DotNetCoreCLI@2
-inputs:
-command: 'test'
-projects: '**/*Test.csproj'
-arguments: '--no-restore --no-build'
-displayName: 'Run Tests'
+  inputs:
+    command: 'test'
+    projects: '**/*Test.csproj'
+    arguments: '--no-restore --no-build'
+  displayName: 'Run Tests'
+ 
 - task: DotNetCoreCLI@2
-inputs:
-command: 'publish'
-publishWebProjects: false
-projects: '**/ProductMicroservice.csproj'
-arguments: '--configuration $(buildConfiguration) --no-restore'
-modifyOutputPath: false
-displayName: 'Publish ProductMicroservice'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/ProductMicroservice.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    modifyOutputPath: false
+  displayName: 'Publish ProductMicroservice'
+  condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
