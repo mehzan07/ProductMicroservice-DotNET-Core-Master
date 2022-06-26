@@ -4,9 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 name : NetCore-ProductMicroservice-CI
 trigger:
-branches:
-include:
-- master
+    branches:
+    include:
+    - master
 paths:
 include:
 - ProductMicroservice-DotNET-Core-Master/*
