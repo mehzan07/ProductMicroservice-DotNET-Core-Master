@@ -7,7 +7,7 @@ trigger:
     branches:
     include:
     - master
-  paths:
+    paths:
 include:
 - ProductMicroservice-DotNET-Core-Master/*
 pool:
