@@ -16,6 +16,7 @@ pool:
  
 variables:
   buildConfiguration: 'Release'
+  System.Debug: 'true'
  
 steps:
 - task: DotNetCoreCLI@2
@@ -48,12 +49,10 @@ steps:
   #displayName: 'Publish ProductMicroservice'
   #condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
 #Publish projects to specified folder.
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
+
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: PublishBuildArtifacts@1
   inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/ProductMicroservice.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)/Output'
-    zipAfterPublish: true
-    modifyOutputPath: true
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
