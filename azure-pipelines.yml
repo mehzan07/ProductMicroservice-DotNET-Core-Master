@@ -38,7 +38,7 @@ steps:
     arguments: '--no-restore --no-build'
   displayName: 'Run Tests'
  
--  #task: DotNetCoreCLI@2
+#-  #task: DotNetCoreCLI@2
   #inputs:
    # command: 'publish'
     #publishWebProjects: false
