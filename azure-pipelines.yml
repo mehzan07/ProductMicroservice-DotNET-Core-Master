@@ -50,6 +50,8 @@ steps:
   #condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
 #Publish projects to specified folder.
 
+#Publish Artifact
+
 - powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
 - task: CopyFiles@2
@@ -61,3 +63,12 @@ steps:
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: drop
+#Download Artifact:
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
