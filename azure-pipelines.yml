@@ -56,6 +56,8 @@ steps:
   inputs:
     targetPath: $(Build.ArtifactStagingDirectory)
     artifactName: drop
-- task: DownloadPipelineArtifact@2
-  inputs:
-    artifactName: drop
+- download: current
+  artifact: drop
+  patterns: |
+    **/*.js
+    **/*.zip
