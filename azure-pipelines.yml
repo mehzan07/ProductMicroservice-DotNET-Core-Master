@@ -39,20 +39,19 @@ steps:
     arguments: '--no-restore --no-build'
   displayName: 'Run Tests'
  
-#-  #task: DotNetCoreCLI@2
-  #inputs:
-   # command: 'publish'
-    #publishWebProjects: false
-    #projects: '**/ProductMicroservice.csproj'
-    #arguments: '--configuration $(buildConfiguration) --no-restore'
-    #modifyOutputPath: false
-  #displayName: 'Publish ProductMicroservice'
-  #condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
-#Publish projects to specified folder.
+-  task: DotNetCoreCLI@2
+   inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/ProductMicroservice.csproj'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    modifyOutputPath: false
+   displayName: 'Publish ProductMicroservice'
+  condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
 
-#Publish Artifact
 
-- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
+#Copy and publish binaries
+
 
 - task: CopyFiles@2
   inputs:
@@ -63,8 +62,8 @@ steps:
   inputs:
     pathToPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: drop
+
 #Download Artifact:
-- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
 - task: DownloadBuildArtifacts@0
   inputs:
