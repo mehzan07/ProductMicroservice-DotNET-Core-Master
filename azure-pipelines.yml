@@ -52,6 +52,7 @@ steps:
 
 
 #Copy and publish binaries
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
 
 - task: CopyFiles@2
@@ -65,6 +66,7 @@ steps:
     artifactName: drop
 
 #Download Artifact:
+- powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
 - task: DownloadBuildArtifacts@0
   inputs:
