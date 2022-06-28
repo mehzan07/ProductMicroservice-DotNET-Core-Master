@@ -54,7 +54,7 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/bin/drop
+    targetPath: $(Build.ArtifactStagingDirectory)
     artifactName: drop
 - task: DownloadPipelineArtifact@2
   inputs:
