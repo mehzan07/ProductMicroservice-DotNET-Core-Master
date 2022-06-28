@@ -39,15 +39,16 @@ steps:
     arguments: '--no-restore --no-build'
   displayName: 'Run Tests'
  
--  task: DotNetCoreCLI@2
-   inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/ProductMicroservice.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
-    modifyOutputPath: false
-   displayName: 'Publish ProductMicroservice'
-  condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
+-  #task: DotNetCoreCLI@2
+  #inputs:
+   # command: 'publish'
+    #publishWebProjects: false
+    #projects: '**/ProductMicroservice.csproj'
+    #arguments: '--configuration $(buildConfiguration) --no-restore'
+    #modifyOutputPath: false
+  #displayName: 'Publish ProductMicroservice'
+  #condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
+#Publish projects to specified folder.
 
 
 #Copy and publish binaries
