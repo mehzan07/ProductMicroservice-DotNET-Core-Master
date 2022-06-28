@@ -52,7 +52,10 @@ steps:
 
 - powershell: gci env:* | sort-object name | Format-Table -AutoSize | Out-File $env:BUILD_ARTIFACTSTAGINGDIRECTORY/environment-variables.txt
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    targetPath: $(System.DefaultWorkingDirectory)/bin/drop
+    artifactName: drop
+- task: DownloadPipelineArtifact@2
+  inputs:
     artifactName: drop
