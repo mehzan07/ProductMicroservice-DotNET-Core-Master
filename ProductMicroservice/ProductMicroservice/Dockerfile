@@ -12,8 +12,6 @@ EXPOSE 1433
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/"]
-## RUN dotnet restore "ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-##COPY ["ProductMicroservice/ProductMicroservice.csproj", "ProductMicroservice/"]
 RUN dotnet restore "ProductMicroservice/ProductMicroservice.csproj"
 COPY . .
 WORKDIR "/src/ProductMicroservice"
