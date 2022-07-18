@@ -14,7 +14,10 @@ using MediatR;
 using AutoMapper;
 using ProductMicroservice.RabbitMQMessaging.Options;
 using ProductMicroservice.RabbitMQMessaging.Sendmesage;
-
+using ProductMicroservice.CQRS.Commands;
+using ProductMicroservice.CQRS.Queries;
+using System.Collections.Generic;
+using ProductMicroservice.Models;
 
 namespace ProductMicroservice
 {
@@ -56,11 +59,18 @@ namespace ProductMicroservice
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(Startup));
-
             services.AddOptions();
+
+            // register handler for CQRS but doesnn't help to solve accessing database in Release configuration. 
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddTransient<IRequestHandler<GetProductLisQuery, IEnumerable<Product>>, GetProductListQueryHandler>();
+            services.AddTransient<IRequestHandler<GetProductByIdQuery, Product>, GetProductByIdHandler>();
+            services.AddTransient<IRequestHandler<CreateProductCommand, Product>, CreateProductCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteProductByIdCommand, Product>, DeleteProductCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateProductCommand, Product>, UpdateProductCommandHandler>();
+
             services.Configure<RabbitMqConfig>(Configuration.GetSection("RabbitMq"));
             services.AddTransient<IProductUpdateSender, ProductUpdateSender>();
         }
