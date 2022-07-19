@@ -34,6 +34,12 @@ namespace ProductMicroservice
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddHealthChecks();
+           // for Override Appsettings in Kubernetes
+            var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+            var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfig>();
+            services.Configure<RabbitMqConfig>(serviceClientSettingsConfig);
+
             // connectionString: ProductsDBConString is defined in the appsettings.json
             services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
 
@@ -73,9 +79,15 @@ namespace ProductMicroservice
 
             services.Configure<RabbitMqConfig>(Configuration.GetSection("RabbitMq"));
             services.AddTransient<IProductUpdateSender, ProductUpdateSender>();
+
+            // for Override Appsettings in Kubernetes butgives error.
+            //if (serviceClientSettings.Enabled)
+            //{
+            //    services.AddHostedService<ProducUpdatetSender>();
+            //}
         }
-       
-        
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
