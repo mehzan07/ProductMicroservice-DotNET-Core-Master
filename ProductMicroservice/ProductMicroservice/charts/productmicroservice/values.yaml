@@ -19,7 +19,7 @@ service:
   port: 80
 
 envvariables:
-rabbitmq__enabled: false  #  stash test
+rabbitmq__enabled: false  
 
 deployment:
   containerPort: 80
