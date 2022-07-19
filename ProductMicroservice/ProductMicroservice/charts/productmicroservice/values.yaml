@@ -19,7 +19,7 @@ service:
   port: 80
 
 envvariables:
-rabbitmq__enabled: false
+rabbitmq__enabled: false  # test comment
 
 deployment:
   containerPort: 80
