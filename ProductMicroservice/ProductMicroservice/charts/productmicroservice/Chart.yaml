@@ -4,3 +4,4 @@ description: A Helm chart for Kubernetes
 name: productmicroservice
 version: 0.1.0
 
+# just a test
