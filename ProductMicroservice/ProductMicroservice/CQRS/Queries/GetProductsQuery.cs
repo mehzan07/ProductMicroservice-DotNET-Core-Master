@@ -5,7 +5,8 @@ using ProductMicroservice.Models;
 
 namespace ProductMicroservice.CQRS.Queries
 {
-    public class GetProductLisQuery : IRequest<IEnumerable<Product>>  
+    public class GetProductListQuery : IRequest<List<Product>> 
     {
+        public int Id { get; set; }
     }
 }
