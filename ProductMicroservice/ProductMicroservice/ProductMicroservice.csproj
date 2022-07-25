@@ -14,13 +14,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Utvecklingprogram\Microservices\ProductMicroservice\ProductMicroservice\ProductMicroservice.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
-    <Optimize>true</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\net6.0\</OutputPath>
   </PropertyGroup>
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\Utvecklingprogram\Microservices\ProductMicroservice\ProductMicroservice\ProductMicroservice.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
-    <Optimize>true</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Release\net6.0\</OutputPath>
   </PropertyGroup>
 
