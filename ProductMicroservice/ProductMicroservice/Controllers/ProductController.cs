@@ -46,11 +46,11 @@ namespace ProductMicroservice.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> Get()
+        public async Task<ActionResult<List<Product>>> Get()
         {
             try
             {
-                var products = await _mediator.Send(new GetProductLisQuery());
+                var products = await _mediator.Send(new GetProductListQuery());
                 return new OkObjectResult(products);
 
             }
