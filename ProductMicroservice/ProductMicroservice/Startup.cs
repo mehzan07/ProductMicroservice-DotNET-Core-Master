@@ -41,7 +41,7 @@ namespace ProductMicroservice
             services.Configure<RabbitMqConfig>(serviceClientSettingsConfig);
 
             // connectionString: ProductsDBConString is defined in the appsettings.json
-            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
+           services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddControllers();
@@ -71,7 +71,7 @@ namespace ProductMicroservice
 
             // register handler for CQRS but doesnn't help to solve accessing database in Release configuration. 
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddTransient<IRequestHandler<GetProductLisQuery, IEnumerable<Product>>, GetProductListQueryHandler>();
+            services.AddTransient<IRequestHandler<GetProductListQuery, List<Product>>, GetProductListQueryHandler>();
             services.AddTransient<IRequestHandler<GetProductByIdQuery, Product>, GetProductByIdHandler>();
             services.AddTransient<IRequestHandler<CreateProductCommand, Product>, CreateProductCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteProductByIdCommand, Product>, DeleteProductCommandHandler>();
@@ -89,10 +89,11 @@ namespace ProductMicroservice
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
 
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
