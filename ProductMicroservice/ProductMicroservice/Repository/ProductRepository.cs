@@ -29,7 +29,7 @@ namespace ProductMicroservice.Repository
             return _dbContext.Products.Find(productId);
         }
 
-        public IEnumerable<Product> GetProducts()
+        public List<Product> GetProducts()
         {
             return _dbContext.Products.ToList();
 
