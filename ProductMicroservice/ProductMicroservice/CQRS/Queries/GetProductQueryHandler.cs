@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace ProductMicroservice.CQRS.Queries
 {
 
-    public class GetProductListQueryHandler : IRequestHandler<GetProductLisQuery, IEnumerable<Product>>
+    public class GetProductListQueryHandler : IRequestHandler<GetProductListQuery, List<Product>>
     {
         private readonly IProductRepository _productRepository;
 
@@ -17,11 +17,13 @@ namespace ProductMicroservice.CQRS.Queries
         {
             _productRepository = productRepository;
         }
-
-        public async Task<IEnumerable<Product>> Handle(GetProductLisQuery request, CancellationToken cancellationToken)
+        public async Task<List<Product>> Handle(GetProductListQuery request, CancellationToken cancellationToken)
         {
-            
-            return  await Task.FromResult( _productRepository.GetProducts());
+
+            return await Task.FromResult<List<Product>>(request.Id == 0 ? _productRepository.GetProducts() : new List<Product>()
+            {
+                _productRepository.GetProductByID(request.Id)
+            });
 
 
         }
