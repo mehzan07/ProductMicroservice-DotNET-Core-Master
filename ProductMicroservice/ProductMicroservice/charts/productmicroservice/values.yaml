@@ -14,12 +14,11 @@ imagePullSecrets: []
   #
   # This uses credentials from secret "myRegistryKeySecretName".
   # - name: myRegistryKeySecretName
+  #  type:ClusterIP change this to type: LoadBalancer to exposing  externalIP in the productmicroservice Service 
 service:
-  type: LoadBalancer  # ClusterIP changing because of exposing to the externalIP in the productmicroservice.
+  type: LoadBalancer
   port: 80
-
-envvariables:
-rabbitmq__enabled: false  
+ 
 
 deployment:
   containerPort: 80
@@ -38,6 +37,11 @@ ingress:
     # - secretName: chart-example-tls
     #   hosts:
     #     - chart-example.local
+  hpa:
+   enabled: true
+   minReplicas: 1
+   maxReplicas: 10
+   averageCpuUtilization: 50
 secrets: {}
   # Optionally specify a set of secret objects whose values
   # will be injected as environment variables by default.
