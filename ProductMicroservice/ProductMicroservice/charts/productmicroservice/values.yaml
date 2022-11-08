@@ -17,11 +17,11 @@ imagePullSecrets: []
   #  type:ClusterIP change this to type: LoadBalancer to exposing  externalIP in the productmicroservice Service 
 service:
   type: LoadBalancer
-  port: 80
+  port: 8080
  
 
 deployment:
-  containerPort: 80
+  containerPort: 8080
 
 probes:
   enabled: false
