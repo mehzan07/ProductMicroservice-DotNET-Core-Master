@@ -18,6 +18,8 @@ using ProductMicroservice.CQRS.Commands;
 using ProductMicroservice.CQRS.Queries;
 using System.Collections.Generic;
 using ProductMicroservice.Models;
+using Microsoft.Extensions.Hosting;
+
 
 namespace ProductMicroservice
 {
@@ -40,8 +42,14 @@ namespace ProductMicroservice
             var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfig>();
             services.Configure<RabbitMqConfig>(serviceClientSettingsConfig);
 
-            // connectionString: ProductsDBConString is defined in the appsettings.json
-           services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
+            // Todo: fix this later
+            //if (serviceClientSettings.Enabled)
+            //{
+            //    services.AddHostedService<ProductUpdateSender>();
+            //}
+
+                // connectionString: ProductsDBConString is defined in the appsettings.json
+                services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddControllers();
