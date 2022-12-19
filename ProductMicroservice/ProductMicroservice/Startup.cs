@@ -18,7 +18,9 @@ using ProductMicroservice.CQRS.Commands;
 using ProductMicroservice.CQRS.Queries;
 using System.Collections.Generic;
 using ProductMicroservice.Models;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting; 
+
+
 
 
 namespace ProductMicroservice
@@ -42,14 +44,8 @@ namespace ProductMicroservice
             var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfig>();
             services.Configure<RabbitMqConfig>(serviceClientSettingsConfig);
 
-            // Todo: fix this later
-            //if (serviceClientSettings.Enabled)
-            //{
-            //    services.AddHostedService<ProductUpdateSender>();
-            //}
-
-                // connectionString: ProductsDBConString is defined in the appsettings.json
-                services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
+            // connectionString: ProductsDBConString is defined in the appsettings.json
+            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProductsDBConString")));
 
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddControllers();
@@ -88,19 +84,18 @@ namespace ProductMicroservice
             services.Configure<RabbitMqConfig>(Configuration.GetSection("RabbitMq"));
             services.AddTransient<IProductUpdateSender, ProductUpdateSender>();
 
-            // for Override Appsettings in Kubernetes butgives error.
-            //if (serviceClientSettings.Enabled)
-            //{
-            //    services.AddHostedService<ProducUpdatetSender>();
-            //}
+            // for Override Appsettings in Kubernetes but gives error.
+            if (serviceClientSettings.Enabled)
+            {
+               // services.AddHostedService<ProductUpdateSender>();
+            }
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         [Obsolete]
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
 
             if (env.IsDevelopment())
             {
