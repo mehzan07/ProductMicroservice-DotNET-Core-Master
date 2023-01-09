@@ -117,7 +117,11 @@ namespace ProductMicroservice
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // Configuring Health for kubernetes
+                endpoints.MapHealthChecks("/health");
             });
+
+
         }
        
     }

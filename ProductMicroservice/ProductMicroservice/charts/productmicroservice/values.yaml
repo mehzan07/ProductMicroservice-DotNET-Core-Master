@@ -23,7 +23,7 @@ deployment:
   containerPort: 80
 
 probes:
-  enabled: false
+  enabled: true
 
 ingress:
   enabled: false
