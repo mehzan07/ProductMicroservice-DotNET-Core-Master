@@ -4,10 +4,12 @@
 fullnameOverride: productmicroservice
 replicaCount: 1
 image:
-  repository: mehzan07/productmicroservice
-  tag: latest
+  repository: __Repository__
+  tag: __BuildNumber__
   pullPolicy: IfNotPresent
-imagePullSecrets: []
+imagePullSecrets:
+  - name: acr-secret
+
   # Optionally specify an array of imagePullSecrets.
   # Secrets must be manually created in the namespace.
   # ref: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
