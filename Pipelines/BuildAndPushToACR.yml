@@ -3,17 +3,24 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+  branches: 
+    include:
+      - master
+  paths:
+    include:
+      - ProductMicroservice/*
 
 resources:
 - repo: self
+
 
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '835599f2-e864-466f-802d-67f37fdc8964'
   imageRepository: 'mehzanproductmicroservicedotnetcoremaster'
   containerRegistry: 'mehzancontainerregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
+ ## dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
