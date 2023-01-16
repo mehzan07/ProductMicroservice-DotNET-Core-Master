@@ -13,8 +13,6 @@ trigger:
       - ProductMicroservice/*
 pool:
   vmImage: 'windows-latest'
-  
-  demands:
 
 variables:
   # Container registry service connection established during pipeline creation
