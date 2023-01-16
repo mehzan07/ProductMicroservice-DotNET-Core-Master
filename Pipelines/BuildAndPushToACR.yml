@@ -1,26 +1,21 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+name : NetCore-ProductMicroservice-CI-CD
 
 trigger:
-  branches: 
+  branches:  
     include:
-      - master
-  paths:
-    include:
-      - ProductMicroservice-DotNET-Core-Master/*
+    - master
+    - ProductMicroservice-DotNET-Core-Master/*
 
 resources:
 - repo: self
 
-
 variables:
+  buildConfiguration: 'Release'     
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '835599f2-e864-466f-802d-67f37fdc8964'
+  dockerRegistryServiceConnection: 'c1a56e1b-03cf-41ea-83c7-c8a713bf8628'
   imageRepository: 'mehzanproductmicroservicedotnetcoremaster'
   containerRegistry: 'mehzancontainerregistry.azurecr.io'
- ## dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
