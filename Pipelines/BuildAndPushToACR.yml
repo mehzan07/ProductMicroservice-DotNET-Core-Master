@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'ac1d08b4-8510-4645-a698-2ee160e3490d'
+  dockerRegistryServiceConnection: '835599f2-e864-466f-802d-67f37fdc8964'
   imageRepository: 'mehzanproductmicroservicedotnetcoremaster'
   containerRegistry: 'mehzancontainerregistry.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
