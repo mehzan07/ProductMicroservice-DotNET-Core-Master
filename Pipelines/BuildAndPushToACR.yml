@@ -8,7 +8,7 @@ trigger:
       - master
   paths:
     include:
-      - ProductMicroservice/*
+      - ProductMicroservice-DotNET-Core-Master/*
 
 resources:
 - repo: self
