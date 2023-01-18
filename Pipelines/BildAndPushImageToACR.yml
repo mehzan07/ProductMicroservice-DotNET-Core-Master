@@ -15,6 +15,7 @@ variables:
  # imageRepository: 'productmicroservice'
  # containerRegistry: 'mehzancontainerregistry.azurecr.io'
  # dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
+ dockerRegistryServiceConnection: '52971828-c44f-487d-a2ed-77a0fd2572ff'
   - name: repository
     value: 'productmicroservice'
   - name: dockerfile
