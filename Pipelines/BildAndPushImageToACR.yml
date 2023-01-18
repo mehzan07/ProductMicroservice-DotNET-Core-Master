@@ -10,7 +10,7 @@ resources:
 - repo: self
 
 variables:
-   #Container registry service connection established during pipeline creation
+  # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '52971828-c44f-487d-a2ed-77a0fd2572ff'
   imageRepository: 'productmicroservice'
   containerRegistry: 'mehzancontainerregistry.azurecr.io'
@@ -33,4 +33,5 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
-        tags: $(tag)
+        tags: 
+          $(tag)
