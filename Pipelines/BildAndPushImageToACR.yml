@@ -11,17 +11,17 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '52971828-c44f-487d-a2ed-77a0fd2572ff'
-  imageRepository: 'mehzanproductmicroservicedotnetcoremaster'
-  containerRegistry: 'mehzancontainerregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  #vmImageName: 'ubuntu-latest'
-  vmImageName: 'windows-latest'
-
-
+ # dockerRegistryServiceConnection: '52971828-c44f-487d-a2ed-77a0fd2572ff'
+ # imageRepository: 'productmicroservice'
+ # containerRegistry: 'mehzancontainerregistry.azurecr.io'
+ # dockerfilePath: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
+  - name: repository
+    value: 'productmicroservice'
+  - name: dockerfile
+    value: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice/Dockerfile'
+  - name: containerRegistry
+    value: 'mehzancontainerregistry.azurecr.io'
+  
 stages:
 - stage: Build
   displayName: Build and push stage
@@ -35,8 +35,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
-        # dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        repository: ${{ variables.repository }}
+        # dockerfile: ${{ variables.dockerfile }}
+        containerRegistry: ${{ variables.containerRegistry }}
+        tags: $(Build.BuildId)
