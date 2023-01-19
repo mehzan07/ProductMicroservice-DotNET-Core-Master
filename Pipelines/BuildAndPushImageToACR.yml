@@ -35,7 +35,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        buildContext: '$(Build.SourcesDirectory)/ProductMicroservice/ProductMicroservice'
+        buildContext: $(Build.Repository.LocalPath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
