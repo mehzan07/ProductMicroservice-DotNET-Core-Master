@@ -1,3 +1,0 @@
-this project has been taken from following link:
-
-https://www.c-sharpcorner.com/article/microservice-using-asp-net-core/

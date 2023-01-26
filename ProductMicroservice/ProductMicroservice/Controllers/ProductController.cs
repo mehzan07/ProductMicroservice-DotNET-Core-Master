@@ -11,13 +11,11 @@ using ProductMicroservice.CQRS.Commands;
 using ProductMicroservice.CQRS.Queries;
 
 
-/// <summary>
-/// Product description
-/// ProductMicroservice is based on .NET5 (.NET Core 5) With CRUD properties connected to SQL server DB
-/// DataAccess: Repository DBContexts implemented with, Swagger, Dockerize (Docker, Container) CQRS, Mediator, RabbitMQ,
-/// Methods: Get (Read), Post (Insert), Put (update) Delete, All Methods uses CQRS and mediator to distingish Read and Write 
-/// Operations in the Database.
-/// </summary>
+// <summary>
+//  ProductMicroservice is based on .NET5 (.NET Core 6) With CRUD properties connected to SQL server DB
+// DataAccess: Repository DBContexts implemented with, Swagger, Dockerize (Docker, Container) CQRS, Mediator, RabbitMQ,
+//  Operations in the Database.
+// </summary>
 namespace ProductMicroservice.Controllers
 {
     [Route("api/[controller]")]
