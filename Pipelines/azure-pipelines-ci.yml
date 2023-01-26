@@ -7,7 +7,7 @@ trigger:
     include:
       - ProductMicroservice-DotNET-Core-Master/*
  
-  strategy:
+ strategy:
     matrix:
       linux:
         imageName: "ubuntu-latest"
