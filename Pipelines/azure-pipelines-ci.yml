@@ -8,7 +8,7 @@ trigger:
       - ProductMicroservice-DotNET-Core-Master/*
  
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "ubuntu-latest"
  
 variables:
   buildConfiguration: 'Release'
