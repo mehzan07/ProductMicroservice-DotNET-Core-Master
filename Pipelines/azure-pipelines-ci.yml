@@ -6,19 +6,9 @@ trigger:
   paths:
     include:
       - ProductMicroservice-DotNET-Core-Master/*
- 
-strategy:
-    matrix:
-      linux:
-        imageName: "ubuntu-latest"
-      mac:
-        imageName: "macOS-latest"
-      windows:
-        imageName: "windows-latest"
-    maxParallel: 3
 
 pool:
-  vmImage: $(imageName)
+  vmImage: "ubuntu-latest"
  
 variables:
   buildConfiguration: 'Release'
@@ -52,5 +42,3 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish ProductMicroservice'
-  condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
-
