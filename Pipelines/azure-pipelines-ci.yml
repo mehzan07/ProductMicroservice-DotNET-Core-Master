@@ -6,9 +6,9 @@ trigger:
   paths:
     include:
       - ProductMicroservice-DotNET-Core-Master/*
- 
+
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "ubuntu-latest"
  
 variables:
   buildConfiguration: 'Release'
@@ -42,4 +42,3 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-restore'
     modifyOutputPath: false
   displayName: 'Publish ProductMicroservice'
-  condition: and(succeeded(), ne(variables['Build.Reason'],'PullRequest'))
