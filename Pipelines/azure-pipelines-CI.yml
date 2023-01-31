@@ -54,7 +54,7 @@ steps:
     buildType: current
     downloadType: single
     downloadPath: '$(System.ArtifactDirectory)'
-    ## artifactName: 'ProdMicroservice'
+    ## artifactName: 'drop'
     
   
     
