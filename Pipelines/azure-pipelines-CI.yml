@@ -40,6 +40,7 @@ steps:
     publishWebProjects: true
     projects: '**/ProductMicroservice.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 
     modifyOutputPath: false
   displayName: 'Publish ProductMicroservice'
