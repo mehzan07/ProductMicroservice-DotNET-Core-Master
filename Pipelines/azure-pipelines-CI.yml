@@ -42,5 +42,5 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
-    modifyOutputPath: false
+    ## modifyOutputPath: false
   displayName: 'Publish ProductMicroservice'
