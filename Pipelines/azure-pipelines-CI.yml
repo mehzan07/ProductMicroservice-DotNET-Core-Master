@@ -44,17 +44,22 @@ steps:
     modifyOutputPath: false
   displayName: 'Publish ProductMicroservice'
   
-- task: PublishPipelineArtifact@1
+##- task: PublishPipelineArtifact@1
+##  inputs:
+##-    targetPath: '$(Build.ArtifactStagingDirectory)' 
+ ##-   artifactName: 'ProdMicroserviceArtfact'
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'ProdMicroserviceArtfact'
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: ProdMicroserviceArtfact
 
 - task: DownloadBuildArtifacts@0
   inputs: 
-    buildType: current
-    downloadType: single
-    downloadPath: '$(System.ArtifactDirectory)'
+    buildType: 'current'
+    downloadType: 'single'
     artifactName: 'ProdMicroserviceArtfact'
+    downloadPath: '$(System.ArtifactDirectory)'
+    
     
   
     
