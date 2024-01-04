@@ -16,7 +16,7 @@ namespace ProductMicroservice.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.17");
 
             modelBuilder.Entity("ProductMicroservice.Models.Category", b =>
                 {
@@ -53,6 +53,12 @@ namespace ProductMicroservice.Migrations
                             Id = 3,
                             Description = "Grocery Items",
                             Name = "Grocery"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Books Items",
+                            Name = "Books"
                         });
                 });
 
@@ -67,9 +73,11 @@ namespace ProductMicroservice.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")

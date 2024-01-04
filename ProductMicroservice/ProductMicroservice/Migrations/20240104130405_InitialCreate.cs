@@ -26,8 +26,8 @@ namespace ProductMicroservice.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -39,17 +39,13 @@ namespace ProductMicroservice.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 1, "Electronic Items", "Electronics" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 2, "Dresses", "Clothes" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { 3, "Grocery Items", "Grocery" });
+                values: new object[,]
+                {
+                    { 1, "Electronic Items", "Electronics" },
+                    { 2, "Dresses", "Clothes" },
+                    { 3, "Grocery Items", "Grocery" },
+                    { 4, "Books Items", "Books" }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

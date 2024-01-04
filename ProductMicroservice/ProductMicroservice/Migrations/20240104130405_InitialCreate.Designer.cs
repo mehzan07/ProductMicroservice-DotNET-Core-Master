@@ -9,7 +9,7 @@ using ProductMicroservice.DBContexts;
 namespace ProductMicroservice.Migrations
 {
     [DbContext(typeof(ProductContext))]
-    [Migration("20210303112027_InitialCreate")]
+    [Migration("20240104130405_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace ProductMicroservice.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.17");
 
             modelBuilder.Entity("ProductMicroservice.Models.Category", b =>
                 {
@@ -55,6 +55,12 @@ namespace ProductMicroservice.Migrations
                             Id = 3,
                             Description = "Grocery Items",
                             Name = "Grocery"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Books Items",
+                            Name = "Books"
                         });
                 });
 
@@ -69,9 +75,11 @@ namespace ProductMicroservice.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
