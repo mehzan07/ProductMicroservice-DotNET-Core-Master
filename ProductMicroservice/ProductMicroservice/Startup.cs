@@ -72,7 +72,6 @@ namespace ProductMicroservice
             services.AddAutoMapper(typeof(Startup));
             services.AddOptions();
 
-            // register handler for CQRS but doesnn't help to solve accessing database in Release configuration. 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddTransient<IRequestHandler<GetProductListQuery, List<Product>>, GetProductListQueryHandler>();
             services.AddTransient<IRequestHandler<GetProductByIdQuery, Product>, GetProductByIdHandler>();
