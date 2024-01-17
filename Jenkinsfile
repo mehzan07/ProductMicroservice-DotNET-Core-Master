@@ -4,12 +4,10 @@ pipeline {
     stages {
         stage('Deploy') {
             steps {
-                retry(5) {
-                    sh './flakey-deploy.sh'
-                }
-
-                timeout(time: 5, unit: 'MINUTES') {
-                    sh './health-check.sh'
+                timeout(time: 2, unit: 'MINUTES') {
+                    retry(10) {
+                        sh '/usr/local/security-group-manager/flakey-deploy.sh'
+                    }
                 }
             }
         }
