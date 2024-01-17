@@ -1,27 +1,23 @@
-//Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
 
     environment {
-        DOTNET_SDK_VERSION = '8.0' // Update with your desired .NET Core SDK version
+        DOTNET_CLI_TELEMETRY_OPTOUT = "1"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    checkout scm
+                }
             }
         }
 
         stage('Restore') {
             steps {
                 script {
-                    // Install the specified .NET Core SDK version
-                    def sdkInstallCommand = "dotnet-install.ps1 -Version $env:DOTNET_SDK_VERSION"
-                    bat "powershell.exe -Command \"$sdkInstallCommand\""
-
-                    // Restore project dependencies
-                    bat 'dotnet restore'
+                    bat "dotnet restore ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
                 }
             }
         }
@@ -29,8 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Build the project
-                    bat 'dotnet build --configuration Release'
+                    bat "dotnet build ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
                 }
             }
         }
@@ -38,32 +33,33 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run tests
-                    bat 'dotnet test --configuration Release --no-build'
+                    bat "dotnet test ${env.WORKSPACE}/ProductMicroservicesTest/ProductMicroserviceTest.csproj"
                 }
             }
         }
 
-        // Add additional stages for deployment, if needed
-        // stage('Deploy') {
-        //     steps {
-        //         // Deployment steps
-        //     }
-        // }
+        stage('Publish') {
+            steps {
+                script {
+                    bat "dotnet publish ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o ${env.WORKSPACE}/publish"
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Add your deployment steps here
+                // e.g., deploy to a server, push to a container registry, etc.
+            }
+        }
     }
 
     post {
-        always {
-            // Clean up steps, if needed
-        }
-
         success {
-            // Actions to be performed on success
+            echo 'Build successful - Add any additional success steps here'
         }
-
         failure {
-            // Actions to be performed on failure
+            echo 'Build failed - Add any additional failure steps here'
         }
     }
 }
-
