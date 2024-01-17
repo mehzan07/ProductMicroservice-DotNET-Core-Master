@@ -2,13 +2,15 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Deploy') {
             steps {
-                sh 'echo "Welcome"'
-                sh '''
-                    echo "The multiline shell steps are working"
-                    ls -lah
-                '''
+                retry(5) {
+                    sh './flakey-deploy.sh'
+                }
+
+                timeout(time: 5, unit: 'MINUTES') {
+                    sh './health-check.sh'
+                }
             }
         }
     }
