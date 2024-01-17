@@ -1,15 +1,69 @@
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
+
+    environment {
+        DOTNET_SDK_VERSION = '8.0' // Update with your desired .NET Core SDK version
+    }
+
     stages {
-        stage('Deploy') {
+        stage('Checkout') {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    retry(10) {
-                        sh '/usr/local/security-group-manager/flakey-deploy.sh'
-                    }
+                checkout scm
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                script {
+                    // Install the specified .NET Core SDK version
+                    def sdkInstallCommand = "dotnet-install.ps1 -Version $env:DOTNET_SDK_VERSION"
+                    bat "powershell.exe -Command \"$sdkInstallCommand\""
+
+                    // Restore project dependencies
+                    bat 'dotnet restore'
                 }
             }
         }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build the project
+                    bat 'dotnet build --configuration Release'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Run tests
+                    bat 'dotnet test --configuration Release --no-build'
+                }
+            }
+        }
+
+        // Add additional stages for deployment, if needed
+        // stage('Deploy') {
+        //     steps {
+        //         // Deployment steps
+        //     }
+        // }
+    }
+
+    post {
+        always {
+            // Clean up steps, if needed
+        }
+
+        success {
+            // Actions to be performed on success
+        }
+
+        failure {
+            // Actions to be performed on failure
+        }
     }
 }
+
