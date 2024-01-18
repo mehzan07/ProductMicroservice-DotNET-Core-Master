@@ -12,7 +12,7 @@ pipeline {
                 checkout scm
             }
         }
-    }
+    
 
         stage('Restore') {
             steps {
@@ -76,4 +76,5 @@ stage('Deploy') {
             echo 'Build failed - Add any additional failure steps here'
         }
     }
+}
 }
