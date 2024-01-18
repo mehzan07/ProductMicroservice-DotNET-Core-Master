@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        DOTNET_CLI_TELEMETRY_OPTOUT = "1"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -12,13 +8,12 @@ pipeline {
                 checkout scm
             }
         }
-    
 
         stage('Restore') {
             steps {
                 echo 'Starting Restore'
                 script {
-                    bat "dotnet restore ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+                    bat "dotnet restore ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
                 }
             }
         }
@@ -27,7 +22,7 @@ pipeline {
             steps {
                 echo 'Starting Build'
                 script {
-                    bat "dotnet build ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+                    bat "dotnet build ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
                 }
             }
         }
@@ -36,7 +31,7 @@ pipeline {
             steps {
                 echo 'Starting Test'
                 script {
-                    bat "dotnet test ${env.WORKSPACE}/ProductMicroservicesTest/ProductMicroservicesTest.csproj"
+                    bat "dotnet test ProductMicroservicesTest/ProductMicroservicesTest.csproj"
                 }
             }
         }
@@ -45,28 +40,32 @@ pipeline {
             steps {
                 echo 'Starting Publish'
                 script {
-                    bat "dotnet publish ${env.WORKSPACE}/ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o ${env.WORKSPACE}/publish"
+                    bat "dotnet publish ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o publish"
                 }
             }
         }
-stage('Deploy') {
-    steps {
-        echo 'Starting Deploy'
 
-        // Define the target directory for deployment
-        targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
+        stage('Deploy') {
+            steps {
+                echo 'Starting Deploy'
 
-        // Create the target directory if it doesn't exist
-        bat "mkdir ${targetDirectory}"
+                // Define the target directory for deployment
+                def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
 
-        // Copy the published artifacts to the target directory
-        bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
+                // Create the target directory if it doesn't exist
+                script {
+                    bat "mkdir ${targetDirectory}"
+                }
 
-        echo 'Deployment completed'
+                // Copy the published artifacts to the target directory
+                script {
+                    bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
+                }
+
+                echo 'Deployment completed'
+            }
+        }
     }
-}
-
-
 
     post {
         success {
@@ -76,5 +75,4 @@ stage('Deploy') {
             echo 'Build failed - Add any additional failure steps here'
         }
     }
-}
 }
