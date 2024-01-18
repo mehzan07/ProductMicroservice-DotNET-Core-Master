@@ -9,48 +9,27 @@ pipeline {
             }
         }
 
-        stage('Restore') {
+        stage('Build and Test') {
             steps {
-                echo 'Starting Restore'
-                bat "dotnet restore ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Starting Build'
-                bat "dotnet build ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Starting Test'
-                bat "dotnet test ProductMicroservicesTest/ProductMicroservicesTest.csproj"
-            }
-        }
-
-        stage('Publish') {
-            steps {
-                echo 'Starting Publish'
-                bat "dotnet publish ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o publish"
+                echo 'Starting Build and Test'
+                script {
+                    def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
+                    bat "dotnet restore ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+                    bat "dotnet build ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
+                    bat "dotnet test ProductMicroservicesTest/ProductMicroservicesTest.csproj"
+                    bat "dotnet publish ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o ${targetDirectory}"
+                }
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Starting Deploy'
-
-                // Define the target directory for deployment
-                def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
-
-                // Create the target directory if it doesn't exist
-                bat "mkdir ${targetDirectory}"
-
-                // Copy the published artifacts to the target directory
-                bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
-
-                echo 'Deployment completed'
+                script {
+                    def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
+                    bat "mkdir ${targetDirectory}"
+                    bat "xcopy /s /y ${env.WORKSPACE}\\${targetDirectory}\\* ${targetDirectory}"
+                }
             }
         }
     }
