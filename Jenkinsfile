@@ -54,7 +54,7 @@ stage('Deploy') {
         echo 'Starting Deploy'
 
         // Define the target directory for deployment
-        def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
+        targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
 
         // Create the target directory if it doesn't exist
         bat "mkdir ${targetDirectory}"
