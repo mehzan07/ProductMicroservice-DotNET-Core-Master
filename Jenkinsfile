@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Starting Test'
                 script {
-                    bat "dotnet test ${env.WORKSPACE}/ProductMicroservicesTest/ProductMicroserviceTest.csproj"
+                    bat "dotnet test ${env.WORKSPACE}/ProductMicroservicesTest/ProductMicroservicesTest.csproj"
                 }
             }
         }
