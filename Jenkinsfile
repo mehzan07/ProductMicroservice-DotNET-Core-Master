@@ -29,6 +29,9 @@ pipeline {
                     def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
                     // bat "mkdir ${targetDirectory}"
                     bat "xcopy /s /y .\\ProductMicroservice\\ProductMicroservice\\bin\\Release\\net8.0\\net8.0\\* ${targetDirectory}"
+                    at "cd ${targetDirectory}"
+            bat "dotnet ProductMicroservice.dll"  // Assuming this is the command to start your application
+        }
                 }
             }
         }
