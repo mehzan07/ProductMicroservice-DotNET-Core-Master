@@ -27,7 +27,7 @@ pipeline {
                 echo 'Starting Deploy'
                 script {
                     def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
-                    bat "mkdir ${targetDirectory}"
+                   // bat "mkdir ${targetDirectory}"
                     bat "xcopy /s /y ${env.WORKSPACE}\\${targetDirectory}\\* ${targetDirectory}"
                 }
             }
