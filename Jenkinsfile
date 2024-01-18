@@ -48,17 +48,15 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy') {
+stage('Deploy') {
     steps {
         echo 'Starting Deploy'
 
         // Define the target directory for deployment
-        //def targetDirectory = 'C:\Temp\Deployment\ProductMicroservice'
-        targetDirectory = 'C:\Temp\Deployment\ProductMicroservice'
+        def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
 
         // Create the target directory if it doesn't exist
-       // bat "mkdir ${targetDirectory}"
+        bat "mkdir ${targetDirectory}"
 
         // Copy the published artifacts to the target directory
         bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
@@ -66,6 +64,7 @@ pipeline {
         echo 'Deployment completed'
     }
 }
+
 
 
     post {
