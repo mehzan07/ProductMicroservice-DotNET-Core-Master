@@ -12,36 +12,28 @@ pipeline {
         stage('Restore') {
             steps {
                 echo 'Starting Restore'
-                script {
-                    bat "dotnet restore ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-                }
+                bat "dotnet restore ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Starting Build'
-                script {
-                    bat "dotnet build ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
-                }
+                bat "dotnet build ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj"
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Starting Test'
-                script {
-                    bat "dotnet test ProductMicroservicesTest/ProductMicroservicesTest.csproj"
-                }
+                bat "dotnet test ProductMicroservicesTest/ProductMicroservicesTest.csproj"
             }
         }
 
         stage('Publish') {
             steps {
                 echo 'Starting Publish'
-                script {
-                    bat "dotnet publish ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o publish"
-                }
+                bat "dotnet publish ProductMicroservice/ProductMicroservice/ProductMicroservice.csproj -c Release -o publish"
             }
         }
 
@@ -53,14 +45,10 @@ pipeline {
                 def targetDirectory = 'C:\\Temp\\Deployment\\ProductMicroservice'
 
                 // Create the target directory if it doesn't exist
-                script {
-                    bat "mkdir ${targetDirectory}"
-                }
+                bat "mkdir ${targetDirectory}"
 
                 // Copy the published artifacts to the target directory
-                script {
-                    bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
-                }
+                bat "xcopy /s /y ${env.WORKSPACE}\\publish\\* ${targetDirectory}"
 
                 echo 'Deployment completed'
             }
