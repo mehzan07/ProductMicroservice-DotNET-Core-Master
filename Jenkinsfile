@@ -5,7 +5,7 @@ pipeline {
     environment {
         DOTNET_CLI_TELEMETRY_OPTOUT = "1"
     }
-
+echo 'Checkout'
     stages {
         stage('Checkout') {
             steps {
@@ -14,7 +14,7 @@ pipeline {
                 }
             }
         }
-
+echo 'Starting Restore'
         stage('Restore') {
             steps {
                 script {
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-
+echo 'Starting Build'
         stage('Build') {
             steps {
                 script {
@@ -30,7 +30,7 @@ pipeline {
                 }
             }
         }
-
+echo 'Starting Test'
         stage('Test') {
             steps {
                 script {
@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-
+echo 'Starting Publish'
         stage('Publish') {
             steps {
                 script {
@@ -46,7 +46,7 @@ pipeline {
                 }
             }
         }
-
+echo 'Starting Deploy'
         stage('Deploy') {
             steps {
                 // Add your deployment steps here
